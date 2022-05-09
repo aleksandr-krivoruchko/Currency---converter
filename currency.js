@@ -1,4 +1,4 @@
-const data = '{ "distance": { "unit": "km", "value": 2}, "convert_to": "yd" }';
+const data = '{ "distance": { "unit": "km", "value": "qq"}, "convert_to": "ft" }';
 const rules = '{"imperialUnits": { "in": 25.4, "ft": 304.8, "yd": 914.4 },"metriclUnits": { "mm": 1, "cm": 10, "m": 1000, "km": 1000000}}';
 
 function converter(data, rules) {
@@ -7,7 +7,7 @@ function converter(data, rules) {
   const {imperialUnits, metriclUnits} = JSON.parse(rules);
 
   const inputUnitIsImperial = Object.keys(imperialUnits).includes(unit);
-
+  
   const multiplier = inputUnitIsImperial
     ? imperialUnits[unit] / metriclUnits[convert_to]
     : metriclUnits[unit] / imperialUnits[convert_to]
