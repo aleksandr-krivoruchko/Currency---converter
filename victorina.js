@@ -1,54 +1,148 @@
-let data = [
+// const data = [
+//   {
+//     id: "1",
+//     question: "What is your marital status?",
+//     answer1: {
+//       text: "Single",
+//       next_question: "1.1",
+//     },
+//     answer2: {
+//       text: "Married",
+//       next_question: "1.2",
+//     },
+//   },
+
+//   {
+//     id: "1.1",
+//     question: "Are you planning on getting married next year?",
+//     answer1: {
+//       text: "Yes",
+//       next_question: "1.1.1",
+//     },
+//     answer2: {
+//       text: "No",
+//       next_question: "2.1.2",
+//     },
+//   },
+
+
+//   {
+//     id: "1.2",
+//     question: "How long have you been married?",
+//     answer1: {
+//       text: "Less than a year",
+//       next_question: "1.2.1",
+//     },
+//     answer2: {
+//       text: "More than a year",
+//       next_question: "1.2.2",
+//     },
+//   },
+
+//   {
+//     id: "1.2.2",
+//     question: "Have you celebrated your one year anniversary?",
+//     answer1: {
+//       text: "Yes",
+//       next_question: "1.2.2.1",
+//     },
+//     answer2: {
+//       text: "No",
+//       next_question: "1.2.2.2",
+//     },
+//   },
+// ];
+
+// function questionnaire(data) {
+//   //[{"What is your marital status?": "Single"},
+//   // {"Are you planning on getting married next year?": "Yes/No"}],
+//   // [{"What is your marital status?": "Married"},
+//   // {"How long have you been married?": "Less than a year"}],
+//   // [{"What is your marital status?": "Married"},
+//   // {"How long have you been married?": "More than a year"},
+//   // {"Have you celebrated your one year anniversary?": "Yes/No"}],
+
+//   let result = { paths: { number: 0, list: [] } };
+//   const tree = {};
+//   console.log(tree);
+
+//   for (const item of data) {
+//     tree[item.question] = [item.answer1.text, item.answer2.text];
+//   }
+
+//   const firstKey = Object.keys(tree)[0];
+
+//   console.log(firstKey);
+//   console.log(tree[firstKey]);
+
+//   const func = (firstKey, firstArr) => {
+//     firstArr.push(firstKey);
+
+//     for (const item of tree[firstKey]) {
+//       if (!tree[item]) {
+//         result.paths.list.push([...firstArr, item]);
+//         //   console.log([...firstArr, item]);
+//       } else {
+//         func(item, [...firstArr]);
+//       }
+//     }
+//   };
+
+//   func(firstKey, []);
+//   console.log(result.paths.list);
+// }
+const data = [
   {
     id: "1",
     question: "What is your marital status?",
-    answer1: {
+    answer: [{
       text: "Single",
       next_question: "1.1",
     },
-    answer2: {
+     {
       text: "Married",
       next_question: "1.2",
-    },
+    }],
   },
 
   {
     id: "1.1",
     question: "Are you planning on getting married next year?",
-    answer1: {
+    answer: [{
       text: "Yes",
       next_question: "1.1.1",
     },
-    answer2: {
+     {
       text: "No",
       next_question: "2.1.2",
-    },
+    }],
   },
+
 
   {
     id: "1.2",
     question: "How long have you been married?",
-    answer1: {
+    answer: [{
       text: "Less than a year",
       next_question: "1.2.1",
     },
-    answer2: {
+     {
       text: "More than a year",
       next_question: "1.2.2",
-    },
+    }],
   },
 
   {
     id: "1.2.2",
     question: "Have you celebrated your one year anniversary?",
-    answer1: {
+    answer: [{
       text: "Yes",
       next_question: "1.2.2.1",
     },
-    answer2: {
+     {
       text: "No",
       next_question: "1.2.2.2",
-    },
+    }],
   },
 ];
 
@@ -60,63 +154,65 @@ function questionnaire(data) {
   // [{"What is your marital status?": "Married"},
   // {"How long have you been married?": "More than a year"},
   // {"Have you celebrated your one year anniversary?": "Yes/No"}],
-
   let result = { paths: { number: 0, list: [] } };
-  const tree = {};
-  console.log(tree);
+              // acc.push({ [element.question]: `${element.answer1.text}/${element.answer2.text}` });
 
-  for (const item of data) {
-    tree[item.question] = [item.answer1.text, item.answer2.text];
+//   data.reduce((acc, element, i, arr) => {
+   
+//     const q = arr.find(item => item.id === acc[i].next_question)
+//     console.log(q);
+//   acc.push({ id: q.id, question: `${q.question}: ${q.answer1.text}/${q.answer2.text}`, next_question: `${q.id}.1`, });
+
+//     if (element.answer1.next_question === acc[i].next_question) {
+//       const q = arr.find(item => item.id === acc[i].next_question)
+//   acc.push({ id: q.id, question: `${q.question}: ${q.answer1.text}/${q.answer2.text}`, next_question: `${q.id}.1`, });
+// } 
+  
+
+//     return console.log(acc);
+//   }, [{ id: data[0].id, question: data[0].question, next_question: data[0].answer1.next_question, }])
+//   console.log(array);
+ }
+
+questionnaire(data)
+// ==================================================
+const array = []
+// ==========================================================
+const tree = {};
+
+for (const item of data) {
+  // tree[item.id] = [item.answer1.next_question, item.answer2.next_question];
+  tree[item.id] = {
+    [item.answer[0].next_question]: [item.question, item.answer[0].text],
+        [item.answer[1].next_question]: [item.question, item.answer[1].text],
+
   }
 
-  const firstKey = Object.keys(tree)[0];
-
-  console.log(firstKey);
-  console.log(tree[firstKey]);
-
-  const func = (firstKey, firstArr) => {
-    firstArr.push(firstKey);
-
-    for (const item of tree[firstKey]) {
-      if (!tree[item]) {
-        result.paths.list.push([...firstArr, item]);
-        //   console.log([...firstArr, item]);
-      } else {
-        func(item, [...firstArr]);
-      }
-    }
-  };
-
-  func(firstKey, []);
-  console.log(result.paths.list);
 }
+console.log(tree);
+const firstKey = Object.keys(tree)[0];
 
-questionnaire(data);
-// ==================================================
 
-// ==========================================================
-// const tree = {};
+const func = (firstKey, firstArr) => {
+  firstArr.push(firstKey);
+  for (const item of tree[firstKey]) {
+    console.log('firstKey', firstKey);
+console.log('tree[firstKey]', tree[firstKey]);
+    console.log('item', item);
 
-// for (const item of data) {
-//   tree[item.id] = [item.answer1.next_question, item.answer2.next_question];
-// }
-// console.log(tree);
+    if (!tree[item]) {
+      console.log([...firstArr, item]);
+      array.push([...firstArr, item])
+    } else {
+      func(item, [...firstArr]);
+    }
+  }
+};
 
-// const firstKey = Object.keys(tree)[0];
+func(firstKey, []);
 
-// console.log(firstKey);
-// console.log(tree[firstKey]);
 
-// const func = (firstKey, firstArr) => {
-//   firstArr.push(firstKey);
+console.log(array);
 
-//   for (const item of tree[firstKey]) {
-//     if (!tree[item]) {
-//       console.log([...firstArr, item]);
-//     } else {
-//       func(item, [...firstArr]);
-//     }
-//   }
-// };
-
-// func(firstKey, []);
+// const q = [...new Set([...array[0], ...array[1]])]
+// console.log(q);
